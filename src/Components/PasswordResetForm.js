@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
-export default function PasswordResetForm() {
+export default function PasswordResetForm({match}) {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   // console.log(route)
@@ -14,6 +13,7 @@ export default function PasswordResetForm() {
       e.preventDefault();
       const payload = {
         password,
+        token:match.params.token
       };
       const response = await axios.post(
         "https://clypsync.herokuapp.com/reset",
@@ -32,7 +32,6 @@ export default function PasswordResetForm() {
       <div className="card login-form">
         <div className="card-body">
           <h3 className="card-title text-center">Change your password</h3>
-
           <div className="card-text">
             <form onSubmit={onSubmit}>
               <div className="form-group">
