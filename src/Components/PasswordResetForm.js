@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
-export default function PasswordResetForm({match}) {
+export default function PasswordResetForm({ match }) {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   // console.log(route)
   const onSubmit = async (e) => {
     try {
+      e.preventDefault();
       if (password !== confirm_password) {
         alert("Passwords do not match");
         return;
       }
-      e.preventDefault();
+
       const payload = {
         password,
-        token:match.params.token
+        token: match.params.token,
       };
       const response = await axios.post(
         "https://clypsync.herokuapp.com/reset",

@@ -5,7 +5,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" component={ResetPassword} />
+        <Route path="/auth/reset/:token" component={ResetPassword} />
       </Switch>
     </Router>
   );
