@@ -28,7 +28,7 @@ export default function PasswordResetForm({ match }) {
       setLoading(false);
       setError({
         hasError: true,
-        message: error?.response.data || error.message,
+        message: error?.response.data?.message || error.message,
       });
       console.log(error.response);
     }
