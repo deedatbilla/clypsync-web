@@ -4,7 +4,11 @@ import axios from "axios";
 export default function PasswordResetForm({ match }) {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
-  const [error, setError] = useState({ hasError: false, message: "" });
+  const [error, setError] = useState({
+    hasError: false,
+    message: "",
+    hasSuccess: false,
+  });
   const [loading, setLoading] = useState(false);
   const onSubmit = async (e) => {
     try {
@@ -26,13 +30,15 @@ export default function PasswordResetForm({ match }) {
       setConfirmPassword("");
       setLoading(false);
       setError({
-        hasError: true,
+        hasError: false,
+        hasSuccess: true,
         message: "Your password reset was successful",
       });
     } catch (error) {
       setLoading(false);
       setError({
         hasError: true,
+        hasSuccess: false,
         message: error?.response.data?.message || error.message,
       });
       console.log(error.response);
@@ -50,6 +56,10 @@ export default function PasswordResetForm({ match }) {
             <form onSubmit={onSubmit}>
               {error.hasError ? (
                 <div className="alert alert-danger">{error.message}</div>
+              ) : null}
+
+              {error.hasSuccess ? (
+                <div className="alert alert-success">{error.message}</div>
               ) : null}
               <div className="form-group">
                 <label for="exampleInputEmail1">New password</label>
