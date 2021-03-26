@@ -3,9 +3,12 @@ import axios from "axios";
 export default function PasswordResetForm({ match }) {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
-  // console.log(route)
+  const [error, setError] = useState({ hasError: false, message: "" });
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (e) => {
     try {
+      setLoading(true);
       e.preventDefault();
       if (password !== confirm_password) {
         alert("Passwords do not match");
@@ -16,12 +19,19 @@ export default function PasswordResetForm({ match }) {
         password,
         token: match.params.token,
       };
-      const response = await axios.post(
+      await axios.post(
         "https://clypsync.herokuapp.com/reset-password",
         payload
       );
-      console.log(response.data);
+      setLoading(false);
+      alert("password reset successful");
+      //   console.log(response.data);
     } catch (error) {
+      setLoading(false);
+      setError({
+        hasError: true,
+        message: error?.response.data || error.message,
+      });
       console.log(error.response);
     }
   };
@@ -35,6 +45,9 @@ export default function PasswordResetForm({ match }) {
           <h3 className="card-title text-center">Change your password</h3>
           <div className="card-text">
             <form onSubmit={onSubmit}>
+              {error.hasError ? (
+                <div className="alert alert-danger">{error.message}</div>
+              ) : null}
               <div className="form-group">
                 <label for="exampleInputEmail1">New password</label>
                 <input
@@ -57,8 +70,10 @@ export default function PasswordResetForm({ match }) {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary btn-block">
-                Reset
+              <button
+              disabled={loading?true:false}
+               type="submit" className="btn btn-primary btn-block">
+                {loading ? <i className="fa fa-spinner fa-spin"></i> : "Reset"}
               </button>
             </form>
           </div>
