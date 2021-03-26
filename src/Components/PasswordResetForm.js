@@ -17,12 +17,12 @@ export default function PasswordResetForm({ match }) {
         token: match.params.token,
       };
       const response = await axios.post(
-        "https://clypsync.herokuapp.com/reset",
+        "https://clypsync.herokuapp.com/reset-password",
         payload
       );
       console.log(response.data);
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response);
     }
   };
   return (
