@@ -5,7 +5,6 @@ export default function PasswordResetForm({ match }) {
   const [confirm_password, setConfirmPassword] = useState("");
   const [error, setError] = useState({ hasError: false, message: "" });
   const [loading, setLoading] = useState(false);
-
   const onSubmit = async (e) => {
     try {
       setLoading(true);
@@ -14,7 +13,6 @@ export default function PasswordResetForm({ match }) {
         alert("Passwords do not match");
         return;
       }
-
       const payload = {
         password,
         token: match.params.token,
@@ -71,8 +69,10 @@ export default function PasswordResetForm({ match }) {
               </div>
 
               <button
-              disabled={loading?true:false}
-               type="submit" className="btn btn-primary btn-block">
+                disabled={loading ? true : false}
+                type="submit"
+                className="btn btn-primary btn-block"
+              >
                 {loading ? <i className="fa fa-spinner fa-spin"></i> : "Reset"}
               </button>
             </form>
