@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+// import logo from "../logo.svg";
 export default function PasswordResetForm({ match }) {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
@@ -21,9 +22,13 @@ export default function PasswordResetForm({ match }) {
         "https://clypsync.herokuapp.com/reset-password",
         payload
       );
+      setPassword("");
+      setConfirmPassword("");
       setLoading(false);
-      alert("password reset successful");
-      //   console.log(response.data);
+      setError({
+        hasError: true,
+        message: "Your password reset was successful",
+      });
     } catch (error) {
       setLoading(false);
       setError({
@@ -36,7 +41,7 @@ export default function PasswordResetForm({ match }) {
   return (
     <div>
       <div className="" style={{ display: "flex", justifyContent: "center" }}>
-        <img width={130} src="logo.svg" alt="logo" />
+        <img width={130} src="../../logo.svg" alt="logo" />
       </div>
       <div className="card login-form">
         <div className="card-body">
