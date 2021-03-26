@@ -1,7 +1,8 @@
 import React from "react";
 import PasswordResetForm from "../Components/PasswordResetForm";
 
-function ResetPassword() {
+function ResetPassword({match}) {
+    console.log(match)
   return (
     <div>
        

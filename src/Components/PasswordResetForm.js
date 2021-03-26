@@ -4,7 +4,7 @@ import axios from "axios";
 export default function PasswordResetForm() {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
-
+  // console.log(route)
   const onSubmit = async (e) => {
     try {
       if (password !== confirm_password) {
@@ -15,7 +15,14 @@ export default function PasswordResetForm() {
       const payload = {
         password,
       };
-    } catch (error) {}
+      const response = await axios.post(
+        "https://clypsync.herokuapp.com/reset",
+        payload
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   return (
     <div>
@@ -27,7 +34,7 @@ export default function PasswordResetForm() {
           <h3 className="card-title text-center">Change your password</h3>
 
           <div className="card-text">
-            <form>
+            <form onSubmit={onSubmit}>
               <div className="form-group">
                 <label for="exampleInputEmail1">New password</label>
                 <input
