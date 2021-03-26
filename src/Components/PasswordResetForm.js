@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function PasswordResetForm() {
+  const [password, setPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
+
+  const onSubmit = async (e) => {
+    try {
+      if (password !== confirm_password) {
+        alert("Passwords do not match");
+        return;
+      }
+      e.preventDefault();
+      const payload = {
+        password,
+      };
+    } catch (error) {}
+  };
   return (
     <div>
-      <div className="ml-3">
+      <div className="" style={{ display: "flex", justifyContent: "center" }}>
         <img width={130} src="logo.svg" alt="logo" />
       </div>
       <div className="card login-form">
@@ -13,18 +29,29 @@ export default function PasswordResetForm() {
           <div className="card-text">
             <form>
               <div className="form-group">
-                <label for="exampleInputEmail1">
-                 New password
-                </label>
+                <label for="exampleInputEmail1">New password</label>
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
+                  value={password}
                   className="form-control form-control-sm"
-                  placeholder="Enter your email address"
+                  placeholder="New password"
+                />
+              </div>
+
+              <div className="form-group">
+                <label for="exampleInputEmail1">Confirm new password</label>
+                <input
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  type="password"
+                  value={confirm_password}
+                  className="form-control form-control-sm"
+                  placeholder="Confirm new password"
                 />
               </div>
 
               <button type="submit" className="btn btn-primary btn-block">
-                Send password reset email
+                Reset
               </button>
             </form>
           </div>
